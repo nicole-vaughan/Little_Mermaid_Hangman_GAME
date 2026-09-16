@@ -1,12 +1,12 @@
 /******************************************************************************
 Nicole Vaughan
-Homework 7
 -- Final Game --
-The Little Mermaid
+The Little Mermaid Hangman
 
 *******************************************************************************/
 #include <iostream>
 #include <time.h>
+
 using namespace std;
 void IntroScreen(); //function prototypes
 void WinningScreen();
@@ -29,9 +29,10 @@ string Coral = "\x1B[38;5;204m";
 int main()
 {
     srand(time(NULL));
-    // Step 1 : intro screen function
+    // INTRO SCREEN FUNCTION
     IntroScreen();
-    // Step 2 : secret names to guess
+    
+    // SECRET NAMES TO GUESS
     string Phrases[10] = {"prince eric","ariel", "sebastian", "flounder",
                           "scuttle", "ursula", "king triton", "max",
                           "melody", "morgana"};
@@ -44,16 +45,17 @@ int main()
             GuessPhrase[i] = '.';
     }
     
-    //Step 4: declare variables
+    //DECLARE VARIABLES
     int BadGuesses = 0;
     string LettersRemaining = "a b c d e f g h i j k l m n o p q r s t u v w x y z";
     string Letter;
     
-    //Step 5: Game loop
+    //GAME LOOP
     while (BadGuesses < 6 && GuessPhrase != SecretPhrase){
         cout << endl;
         system("clear");
-        // Step 6: evolving ASCII art
+        
+        // EVOLVING ASCII ART
         if (BadGuesses == 0){
             cout << Red << "                           ,-''`-.   \n";               
             cout << "                           /       `._       \n";           
@@ -232,18 +234,21 @@ int main()
             cout << endl;
             cout << Red << "She's going to sink the ship! Brace yourselves!" << Default << endl;  
         }
-        // Step 7: Letters Guessed and Bad Guesses (HP) Display
+        // DISPLAY Letters Guessed and Bad Guesses (HP)
         cout << Red << "HP: " << 60 - BadGuesses*10 << Default << endl;
         cout << "Letters Guessed: " << LettersRemaining << endl;
-        // Step 8: GuessPhrase
+        
+        // GUESS PHRASE
         cout << Yellow << "Guess a Little Mermaid Character to stop Ursula! " << Default << GuessPhrase << endl;
-        // Step 9: Ask user to enter letter
+        
+        // PROMPT USER
         cout << "Enter a letter: ";
         cin >> Letter;
         int Found = LettersRemaining.find(Letter, 0); 
         if (Found != -1)
             LettersRemaining.replace (Found, 1, " ");
-        // Step 10: see if Letter is in SecretPhrase and replace in GuessPhrase.
+        
+        // CHECK LETTER in SecretPhrase and replace in GuessPhrase.
         Found = SecretPhrase.find(Letter,0);
             if (Found == -1) // not found
                 BadGuesses++;
@@ -255,6 +260,7 @@ int main()
     }
     system("clear");
     //End Game Loop
+    
     // Send to winning and losing screen:
     if (GuessPhrase == SecretPhrase){
         system("clear");
@@ -266,6 +272,7 @@ int main()
     }
     return 0;
 }
+
 // Winng, Losing, and Entry screen ASCII Art
 void IntroScreen(){
     cout << endl;
